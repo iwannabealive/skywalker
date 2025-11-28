@@ -13,4 +13,4 @@ From the repo root:
 ```
 ./build/gal_engine_demo
 ```
-Use **Enter** (or type `c` then Enter) to advance dialogue, and `q` then Enter to quit. The sample script is located at `scripts/main.txt`.
+Use **Enter** (or type `c` then Enter) to advance dialogue, and `q` then Enter to quit. The engine loads `scripts/main.txt` from the current directory, the executable directory, or the source tree. If all of those are missing, a built-in demo script is used so the program always starts cleanly.

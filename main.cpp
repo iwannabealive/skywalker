@@ -2,10 +2,11 @@
 #include "engine/Config.hpp"
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     Config cfg;
     Application app;
-    if (!app.init(cfg)) {
+    const char* exePath = (argc > 0 && argv[0]) ? argv[0] : "";
+    if (!app.init(cfg, exePath)) {
         std::cerr << "Initialization failed" << std::endl;
         return -1;
     }

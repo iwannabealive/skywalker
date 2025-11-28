@@ -14,5 +14,12 @@ add_executable(gal_engine_demo
     ${ENGINE_SOURCES}
 )
 
+target_compile_definitions(gal_engine_demo PRIVATE PROJECT_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
+
+add_custom_command(TARGET gal_engine_demo POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+            $<TARGET_FILE_DIR:gal_engine_demo>/scripts)
+
 # For Visual Studio users, make sure source files show up
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${ENGINE_HEADERS} ${ENGINE_SOURCES} main.cpp)
