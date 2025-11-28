@@ -1,0 +1,16 @@
+label start
+bg "assets/bg/room.png"
+bgm "assets/bgm/intro.ogg"
+say "Alice" "你好，欢迎来到这个世界。"
+say "Alice" "这里是一个简化的 galgame 引擎示例。"
+choice "去花园" "garden" "去街道" "street"
+label garden
+bg "assets/bg/garden.png"
+say "Alice" "这里是花园。"
+jump "end_label"
+label street
+bg "assets/bg/street.png"
+say "Alice" "这里是街道。"
+label end_label
+say "Alice" "演示结束。"
+end
