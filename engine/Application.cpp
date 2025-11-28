@@ -1,46 +1,14 @@
 #include "Application.hpp"
 #include <chrono>
 #include <iostream>
-#include <filesystem>
-#include <vector>
 
-bool Application::init(const Config& cfg, const std::filesystem::path& exePath) {
+bool Application::init(const Config& cfg) {
     cfg_ = cfg;
     if (!renderer_.init(cfg.windowWidth, cfg.windowHeight, cfg.title)) return false;
     if (!audio_.init()) return false;
 
-    const std::filesystem::path scriptRel = "scripts/main.txt";
-    const std::filesystem::path scriptSourceRoot = std::filesystem::path(PROJECT_SOURCE_DIR) / scriptRel;
-
-    std::vector<std::filesystem::path> candidates;
-    candidates.push_back(scriptRel); // working directory
-
-    if (!exePath.empty()) {
-        std::error_code ec;
-        auto exeCanonical = std::filesystem::weakly_canonical(exePath, ec);
-        if (!ec) {
-            auto exeDir = exeCanonical.parent_path();
-            if (!exeDir.empty()) {
-                candidates.push_back(exeDir / scriptRel);
-            }
-        }
-    }
-
-    candidates.push_back(scriptSourceRoot);
-
-    std::filesystem::path loadedPath;
-    for (const auto& p : candidates) {
-        if (script_.load(p.string())) {
-            loadedPath = p;
-            break;
-        }
-    }
-
-    if (loadedPath.empty()) {
-        std::cerr << "Failed to load script " << scriptRel.string() << "\n";
-        for (const auto& p : candidates) {
-            std::cerr << "Tried: " << std::filesystem::absolute(p) << "\n";
-        }
+    if (!script_.load("scripts/main.txt")) {
+        std::cerr << "Failed to load script scripts/main.txt\n";
         return false;
     }
 

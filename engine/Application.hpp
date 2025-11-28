@@ -6,11 +6,10 @@
 #include "ResourceManager.hpp"
 #include "Scene.hpp"
 #include "ScriptSystem.hpp"
-#include <filesystem>
 
 class Application {
 public:
-    bool init(const Config& cfg, const std::filesystem::path& exePath);
+    bool init(const Config& cfg);
     void run();
     void shutdown();
 
