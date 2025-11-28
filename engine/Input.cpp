@@ -1,6 +1,5 @@
 #include "Input.hpp"
 #include <iostream>
-#include <string>
 
 bool Input::poll(InputState& state) {
     // Simple CLI-driven loop: wait for user to press Enter, 'q' to quit, 'c' to click
