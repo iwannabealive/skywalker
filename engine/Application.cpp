@@ -1,25 +1,14 @@
 #include "Application.hpp"
 #include <chrono>
 #include <iostream>
-#include <filesystem>
 
 bool Application::init(const Config& cfg) {
     cfg_ = cfg;
     if (!renderer_.init(cfg.windowWidth, cfg.windowHeight, cfg.title)) return false;
     if (!audio_.init()) return false;
 
-    const std::filesystem::path scriptRel = "scripts/main.txt";
-    const std::filesystem::path scriptSourceRoot = std::filesystem::path(PROJECT_SOURCE_DIR) / scriptRel;
-    const std::filesystem::path scriptRunDir = scriptRel;
-
-    auto tryLoad = [&](const std::filesystem::path& p) {
-        return script_.load(p.string());
-    };
-
-    if (!tryLoad(scriptRunDir) && !tryLoad(scriptSourceRoot)) {
-        std::cerr << "Failed to load script " << scriptRel.string() << "\n"
-                  << "Tried: " << std::filesystem::absolute(scriptRunDir) << "\n"
-                  << "       " << std::filesystem::absolute(scriptSourceRoot) << "\n";
+    if (!script_.load("scripts/main.txt")) {
+        std::cerr << "Failed to load script scripts/main.txt\n";
         return false;
     }
 
